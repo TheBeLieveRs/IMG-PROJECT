@@ -1,0 +1,79 @@
+SoundMixer.stopAll();
+var frameCount:Number = 0;
+var timer:Number = 0;
+var posx:Number = 0;
+var posy:Number = 0;
+var posx1:Number = 0;
+var posy1:Number = 0;
+var score:Number = 0;
+var left:Number = 30;
+var l:Number = 30;
+Mouse.hide();
+
+addEventListener(Event.ENTER_FRAME, fl_EnterFrameHandler);
+
+function fl_EnterFrameHandler(event:Event):void
+{
+if (l==0){
+	gotoAndStop(2);
+	
+	}
+
+	frameCount++;
+   scoreBoard1.text = score.toString();
+  timeLeft.text = (l).toString();
+	if (frameCount == 24)
+	{
+		frameCount = 0;
+
+		timer++;
+		l=left - timer;
+		
+
+		if (timer%2 == 0)
+		{
+			randomBottle();
+		}
+	}
+	
+	aim1.x = stage.mouseX;
+	aim1.y = stage.mouseY;
+
+}
+
+
+
+
+function lowerlimit(pos:Number)
+{
+	return ( (pos-650)/(435/-370)) +250;
+}
+function upperlimit(pos:Number)
+{
+	return ( (pos-650)/(390/330)) +900;
+}
+
+function randomBottle()
+{
+
+	//trace(score);
+
+	posy = 280 + Math.random() * 370;
+	posx = lowerlimit(posy) + Math.random() * (upperlimit(posy) - lowerlimit(posy));
+
+posy1 = 280 + Math.random() * 370;
+	posx1 = lowerlimit(posy1) + Math.random() * (upperlimit(posy1) - lowerlimit(posy1));
+
+
+	b1.y = posy;
+	b1.x = posx;
+	b1.scaleY = scale(posy);
+	b1.scaleX = scale(posy);
+	
+	b2.y = posy1;
+	b2.x = posx1;
+	b2.scaleY = scale(posy1);
+	b2.scaleX = scale(posy1)
+	
+}
+function scale(pos:Number){return ((1.05/370)*(pos-650))+1.3;}
