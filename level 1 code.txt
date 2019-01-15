@@ -1,0 +1,253 @@
+var g:Number = 5;
+var vy:Number = 0;
+var v:Number = 11;
+var leftPressed,rightPressed,upPressed,downPressed,spacePressed,shiftPressed:Boolean = false;
+col.visible = false;
+var cases:Number = 0;
+
+stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
+stage.addEventListener(Event.ENTER_FRAME, onEnterFrameHandler);
+stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
+function keyUpHandler(e:KeyboardEvent)
+{
+
+	switch (e.keyCode)
+	{
+
+		case 65 :
+
+			leftPressed = false;
+
+			break;
+
+		case 37 :
+
+			leftPressed = false;
+
+			break;
+
+		case 87 :
+
+			upPressed = false;
+
+			break;
+
+		case 38 :
+
+			upPressed = false;
+
+			break;
+
+		case 39 :
+
+			rightPressed = false;
+
+			break;
+
+		case 68 :
+
+			rightPressed = false;
+
+			break;
+
+		case 83 :
+
+			downPressed = false;
+
+			break;
+
+		case 40 :
+
+			downPressed = false;
+
+			break;
+	}
+	if (rightPressed == false)
+	{
+		bhai.gotoAndStop(6);
+	}
+
+
+
+
+}
+
+
+
+function keyDownHandler(e:KeyboardEvent)
+{
+
+	switch (e.keyCode)
+	{
+
+		case 65 :
+
+			leftPressed = true;
+
+			break;
+
+		case 37 :
+
+			leftPressed = true;
+
+			break;
+
+		case 87 :
+
+			upPressed = true;
+
+			break;
+
+		case 38 :
+
+			upPressed = true;
+
+			break;
+
+		case 39 :
+
+			rightPressed = true;
+
+			break;
+
+		case 68 :
+
+			rightPressed = true;
+
+			break;
+
+		case 83 :
+
+			downPressed = true;
+
+			break;
+
+		case 40 :
+
+			downPressed = true;
+
+			break;
+	}
+	if (rightPressed  == true)
+	{
+		bhai.gotoAndPlay(2);
+	}
+	if (leftPressed  == true)
+	{
+		bhai.gotoAndPlay(14);
+	}
+
+
+}
+function onEnterFrameHandler(event:Event)
+{
+
+	if (rightPressed)
+	{
+		bhai.x +=  v;
+
+
+	}
+	if (leftPressed)
+	{
+		bhai.x -=  v;
+	}
+	if (bhai.hitTestObject(ss))
+	{
+		gotoAndStop(2);
+	}
+
+	if (bhai.hitTestObject(col))
+	{
+		cases = 1;
+	}
+	if (bhai.hitTestObject(c1))
+	{
+		cases = 2;
+	}
+	if (bhai.hitTestObject(c2))
+	{
+		cases = 3;
+	}
+	switch (cases)
+	{
+		case 0 :
+			bhai.y +=  vy;
+
+			vy +=  g;
+			break;
+
+		case 1 :
+			vy = 0;
+			bhai.y = col.y;
+			if (upPressed)
+			{
+				bhai.y -=  100;
+				vy -=  10 * g;
+				cases = 0;
+			}
+			/*if (bhai.y > col.y)
+			{
+			bhai.y -=  4;
+			}*/
+			break;
+		case 2 :
+			vy = 0;
+			bhai.y = c1.y;
+			if (upPressed)
+			{
+				bhai.y -=  20;
+				vy -=  10 * g;
+
+			}
+			cases = 0;
+			/*if (bhai.y > c1.y && bhai.y < c1.y + 60)
+			{
+			bhai.y -=  4;
+			}*/
+			break;
+		case 3 :
+			vy = 0;
+			bhai.y = c2.y;
+			if (upPressed)
+			{
+				bhai.y -=  20;
+				vy -=  10 * g;
+
+			}
+			cases = 0;
+			/*if (bhai.y > c2.y && bhai.y < c2.y + 60)
+			{
+			bhai.y -=  4;
+			}*/
+			break;
+	}
+
+	/*if (bhai.hitTestObject(col) == false)
+	{
+	bhai.y +=  vy;
+	
+	vy += g;
+	}
+	else{vy=0;
+	
+	if (upPressed)
+	{
+	bhai.y -=  20;
+	vy -=  10*g;
+	}}
+	if (bhai.y > col.y ){
+	bhai.y -= 4;
+	}*/
+
+	/*if (upPressed)
+	{
+	bhai.y -=  1;
+	vy -=  4*g;
+	}*/
+	//if (bhai.y > col.y || bhai.y > c1.y && bhai.y< c1.y + 50 ||bhai.y > c2.y && bhai.y< c2.y + 50 ){
+	//bhai.y -= 4;
+	//}
+
+
+}

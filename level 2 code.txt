@@ -1,0 +1,282 @@
+var ex,ey,tc:Number =0;
+var e2x:Number =50;
+
+col1.visible = false;
+stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler1);
+stage.addEventListener(Event.ENTER_FRAME, onEnterFrameHandler1);
+stage.addEventListener(Event.ENTER_FRAME, moveMonster1);
+stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler1);
+function keyUpHandler1(e:KeyboardEvent)
+{
+
+	switch (e.keyCode)
+	{
+
+		case 65 :
+
+			leftPressed = false;
+
+			break;
+
+		case 37 :
+
+			leftPressed = false;
+
+			break;
+
+		case 87 :
+
+			upPressed = false;
+
+			break;
+
+		case 38 :
+
+			upPressed = false;
+
+			break;
+
+		case 39 :
+
+			rightPressed = false;
+
+			break;
+
+		case 68 :
+
+			rightPressed = false;
+
+			break;
+
+		case 83 :
+
+			downPressed = false;
+
+			break;
+
+		case 40 :
+
+			downPressed = false;
+
+			break;
+	}
+	if (rightPressed == false)
+	{
+		bhai1.gotoAndStop(6);
+	}
+
+
+
+
+}
+
+
+
+function keyDownHandler1(e:KeyboardEvent)
+{
+
+	switch (e.keyCode)
+	{
+
+		case 65 :
+
+			leftPressed = true;
+
+			break;
+
+		case 37 :
+
+			leftPressed = true;
+
+			break;
+
+		case 87 :
+
+			upPressed = true;
+
+			break;
+
+		case 38 :
+
+			upPressed = true;
+
+			break;
+
+		case 39 :
+
+			rightPressed = true;
+
+			break;
+
+		case 68 :
+
+			rightPressed = true;
+
+			break;
+
+		case 83 :
+
+			downPressed = true;
+
+			break;
+
+		case 40 :
+
+			downPressed = true;
+
+			break;
+	}
+	if (rightPressed  == true)
+	{
+		bhai1.gotoAndPlay(2);
+	}
+	if (leftPressed  == true)
+	{
+		bhai1.gotoAndPlay(14);
+	}
+
+
+}
+function onEnterFrameHandler1(event:Event)
+{
+
+
+	if (rightPressed)
+	{
+		bhai1.x +=  v;
+
+
+	}
+	if (leftPressed)
+	{
+		bhai1.x -=  v;
+	}
+	if (bhai1.hitTestObject(ts1))
+	{
+		gotoAndStop(1,"Scene 7");
+	}
+	if (bhai1.hitTestObject(en1))
+	{
+		gotoAndStop(1);
+	}
+	if (bhai1.hitTestObject(en2))
+	{
+		gotoAndStop(1);
+	}
+
+	if (bhai1.hitTestObject(col1))
+	{
+		cases = 1;
+	}
+	if (bhai1.hitTestObject(c11))
+	{
+		cases = 2;
+	}
+	if (bhai1.hitTestObject(c21))
+	{
+		cases = 3;
+	}
+	switch (cases)
+	{
+		case 0 :
+			bhai1.y +=  vy;
+
+			vy +=  g;
+			break;
+
+		case 1 :
+			vy = 0;
+			bhai1.y = col1.y;
+			if (upPressed)
+			{
+				bhai1.y -=  100;
+				vy -=  10 * g;
+			}
+			cases = 0;
+			/*if (bhai1.y > col1.y)
+			{
+			bhai1.y -=  4;
+			}*/
+			break;
+		case 2 :
+			vy = 0;
+			bhai1.y = c11.y;
+			if (upPressed)
+			{
+				bhai1.y -=  20;
+				vy -=  10 * g;
+
+			}
+			cases = 0;
+			if (bhai1.y > c11.y && bhai1.y < c11.y + 30)
+			{
+				bhai1.y -=  4;
+			}
+			break;
+		case 3 :
+			vy = 0;
+			bhai1.y = c21.y;
+			if (upPressed)
+			{
+				bhai1.y -=  20;
+				vy -=  10 * g;
+
+			}
+			cases = 0;
+			if (bhai1.y > c21.y && bhai1.y < c21.y + 30)
+			{
+				bhai1.y -=  4;
+			}
+			break;
+	}
+
+	/*if (bhai.hitTestObject(col) == false)
+	{
+	bhai.y +=  vy;
+	
+	vy += g;
+	}
+	else{vy=0;
+	
+	if (upPressed)
+	{
+	bhai.y -=  20;
+	vy -=  10*g;
+	}}
+	if (bhai.y > col.y ){
+	bhai.y -= 4;
+	}*/
+
+	/*if (upPressed)
+	{
+	bhai.y -=  1;
+	vy -=  4*g;
+	}*/
+	//if (bhai.y > col.y || bhai.y > c1.y && bhai.y< c1.y + 50 ||bhai.y > c2.y && bhai.y< c2.y + 50 ){
+	//bhai.y -= 4;
+	//}
+
+
+}
+function moveMonster1(event:Event)
+{
+	if (en1.y<50 ){ey = 20;}
+	if (en1.y>575){ey = -20;}
+	if (en1.x<50 ){ex = 20;}
+	if (en1.x>1200 ){ex = -20;}
+	if (en2.x<50 ){e2x = 20;}
+	if (en2.x>1200 ){e2x = -20;}
+	
+	tc++;
+	if (tc == 24)
+	{
+		trace(tc);
+		tc = 0;
+		ex = Math.floor(Math.random() * 20 - 6);
+		ey = Math.floor(Math.random() * 20 - 7);
+e2x =Math.floor( Math.random() * 25 - 20);
+	}
+en2.x += e2x;
+	en1.x +=  ex;
+	en1.y +=  ey;
+}

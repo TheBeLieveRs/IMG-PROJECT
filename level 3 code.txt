@@ -1,0 +1,271 @@
+var lp,rp,up,dp:Boolean = false;
+var spd:Number = 10;
+var spdBat:Number = 5;
+var ze:Array = [zombie1,zombie2,zombie3,zombie4];
+var speed:Array = [5,5,5,5];
+var bsx,bsy,ccx,ccy,bbx,bby,ddy,ddx,ang:Number = 0;
+var enm:Array = [deathWard,bat,aag,patthar];
+var shieldCollector:Number = 0;
+
+
+stage.addEventListener(KeyboardEvent.KEY_DOWN,kd);
+stage.addEventListener(KeyboardEvent.KEY_UP,ku);
+stage.addEventListener(Event.ENTER_FRAME,ef);
+
+function ku(e:KeyboardEvent)
+{
+	switch (e.keyCode)
+	{
+
+		case 65 :
+
+			lp = false;
+
+			break;
+
+		case 37 :
+
+			lp = false;
+
+			break;
+
+		case 87 :
+
+			up = false;
+
+			break;
+
+		case 38 :
+
+			up = false;
+
+			break;
+
+		case 39 :
+
+			rp = false;
+
+			break;
+
+		case 68 :
+
+			rp = false;
+
+			break;
+
+		case 83 :
+
+			dp = false;
+
+			break;
+
+		case 40 :
+
+			dp = false;
+
+			break;
+	}
+	if (rp == false)
+	{
+		cap1.gotoAndStop(6);
+	}
+}
+
+function kd(e:KeyboardEvent)
+{
+	switch (e.keyCode)
+	{
+
+		case 65 :
+
+			lp = true;
+
+			break;
+
+		case 37 :
+
+			lp = true;
+
+			break;
+
+		case 87 :
+
+			up = true;
+
+			break;
+
+		case 38 :
+
+			up = true;
+
+			break;
+
+		case 39 :
+
+			rp = true;
+
+			break;
+
+		case 68 :
+
+			rp = true;
+
+			break;
+
+		case 83 :
+
+			dp = true;
+
+			break;
+
+		case 40 :
+
+			dp = true;
+
+			break;
+	}
+	if (rp  == true)
+	{
+		cap1.gotoAndPlay(2);
+	}
+	if (lp  == true)
+	{
+		cap1.gotoAndPlay(14);
+	}
+	if (up  == true)
+	{
+		cap1.gotoAndPlay(2);
+	}
+	if (dp  == true)
+	{
+		cap1.gotoAndPlay(14);
+	}
+}
+
+
+
+
+function ef(e:Event)
+{
+	ccx = cap1.x;
+	ccy = cap1.y;
+	bbx = bat.x;
+	bby = bat.y;
+	ddy = ccy - bby;
+	ddx = ccx - bbx;
+	ang = Math.atan(ddy/ddx);
+	bsx = Math.cos(ang*180/3.14)*spdBat;
+	bsy = Math.sin(ang*180/3.14)*spdBat;
+	bat.x +=  bsx;
+	if (up == false && dp == false)
+	{
+		bat.y +=  bsy;
+	}
+
+	for (var k:Number  = 0; k < 4; k++)
+	{
+		if (cap1.hitTestObject(enm[k]) == true)
+		{
+			gotoAndStop(2,"Scene 5");
+		}
+	}
+
+	for (var i:Number  = 0; i < 4; i++)
+	{
+
+		ze[i].x +=  speed[i];
+		if (ze[i].x < 50)
+		{
+			speed[i] = 5;
+		}
+		if (ze[i].x > 1200)
+		{
+			speed[i] = -5;
+		}
+		if (cap1.hitTestObject(ze[i]) == true)
+		{
+			gotoAndStop(2,"Scene 5");
+		}
+		if (cap1.y < 250 && up == true)
+		{
+			ze[i].y +=  spd;
+		}
+		if (cap1.y > 550 && dp == true)
+		{
+			ze[i].y -=  spd;
+		}
+	}
+
+
+	
+
+
+	if (sheild.x < 50)
+	{
+		speed[i] = 5;
+	}
+	if (sheild.x > 1200)
+	{
+		speed[i] = -5;
+	}
+	//if (cap1.hitTestObject(ze[i]) == true ){gotoAndStop(2,"Scene 5");}
+	if (cap1.y < 250 && up == true)
+	{
+		sheild.y +=  spd;
+	}
+	if (cap1.y > 550 && dp == true)
+	{
+		sheild.y -=  spd;
+	}
+
+
+	if (cap1.y < 250 && up == true)
+	{
+		bg1.y +=  spd;
+		aag.y +=  spd;
+		patthar.y +=  spd;
+		deathWard.y +=  spd;
+		tha.y +=  spd;
+		bat.y +=  spd - spdBat;
+		up = false;
+	}
+	if (cap1.y > 550 && dp == true)
+	{
+		bg1.y -=  spd;
+		aag.y -=  spd;
+		patthar.y -=  spd;
+		deathWard.y -=  spd;
+		tha.y -=  spd;
+		bat.y -=  spd - spdBat;
+		dp = false;
+	}
+
+	if (lp == true)
+	{
+		cap1.x -=  spd;
+	}
+	if (rp)
+	{
+		cap1.x +=  spd;
+	}
+	if (up)
+	{
+		cap1.y -=  spd;
+	}
+	if (dp)
+	{
+		cap1.y +=  spd;
+	}
+
+	if (cap1.hitTestObject(sheild))
+	{
+		shieldCollector = 1;
+		sheild.alpha = 0;
+	}
+	
+	if (cap1.hitTestObject(tha) && shieldCollector == 1 )
+	{
+		gotoAndPlay (1, 'Scene 6');
+	}
+	else if (cap1.hitTestObject(tha) && shieldCollector == 0 ){}
+}
